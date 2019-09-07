@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import axios from "axios";
 
 import "./Login.css";
 
@@ -8,6 +9,11 @@ const Login = props => {
   const [error, setError] = useState(false);
 
   const submitHandler = () => {
+    // This is not used as the response is always "user not found" and hence dummy data is used below
+    // const data = { email, password };
+    // axios
+    //   .post("https://reqres.in/api/login", data)
+    //   .then(res => console.log(res));
     if (email === "submit@gmail.com" && password === "dummypassword") {
       props.history.push("/home");
     } else {
