@@ -7,18 +7,31 @@ class Home extends Component {
   state = {
     data: [],
     currentpage: 1,
-    loading: true
+    loading: true,
+    pageCount: 1
   };
+
   componentDidMount() {
-    axios
-      .get("https://reqres.in/api/login?page=" + this.state.currentpage)
-      .then(res =>
-        this.setState({
-          data: res.data.data,
-          loading: false
-        })
-      );
+    this.requestHandler(this.state.currentpage);
   }
+
+  requestHandler = page => {
+    this.setState({
+      loading: true
+    });
+    axios.get("https://reqres.in/api/login?page=" + page).then(res =>
+      this.setState({
+        data: res.data.data,
+        currentpage: res.data.page,
+        pageCount: res.data.total_pages,
+        loading: false
+      })
+    );
+  };
+
+  handlePageClick = page => {
+    this.requestHandler(page.selected);
+  };
 
   render() {
     if (this.state.data !== []) {
